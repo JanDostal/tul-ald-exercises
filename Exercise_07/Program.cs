@@ -1,24 +1,27 @@
 ﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Exercise_07
 {
-    public enum Ahoj 
-    {
-        DEBIL,
-        TADY
-    }
-
     public class Program
     {
         static void Main(string[] args)
         {
-            string[] a = Regex.Split("ahoj pos:123", "\\s|:", RegexOptions.Compiled);
+            Train train = new Train();
 
-            for (int i = 0; i < a.Length; i++) 
+            ICollection<string> requestedCommands = new List<string>();
+            string requestedCommand;
+
+            while ((requestedCommand = Console.ReadLine()) != null)
             {
-                Console.WriteLine(a[i]);
+                requestedCommands.Add(requestedCommand);
+            }
+
+            string commandOutput;
+
+            foreach (var command in requestedCommands)
+            {
+                commandOutput = train.ExecuteCommand(command);
+                Console.Write(commandOutput);
             }
         }
     }
