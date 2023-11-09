@@ -61,9 +61,9 @@ namespace Exercise_09
 
             treeContent.AppendLine(Root.Data.ToString());
 
-            if (ReferenceEquals(Root.Left, null) == false) SearchSubtreePreorder(Root.Left, treeContent);
+            if (ReferenceEquals(Root.Left, null) == false) ExtractSubtreeContentPreorder(Root.Left, treeContent);
 
-            if (ReferenceEquals(Root.Right, null) == false) SearchSubtreePreorder(Root.Right, treeContent);
+            if (ReferenceEquals(Root.Right, null) == false) ExtractSubtreeContentPreorder(Root.Right, treeContent);
 
             return treeContent.ToString();
         }
@@ -74,11 +74,11 @@ namespace Exercise_09
 
             StringBuilder treeContent = new StringBuilder();
 
-            if (ReferenceEquals(Root.Left, null) == false) SearchSubtreeInorder(Root.Left, treeContent);
+            if (ReferenceEquals(Root.Left, null) == false) ExtractSubtreeContentInorder(Root.Left, treeContent);
 
             treeContent.AppendLine(Root.Data.ToString());
 
-            if (ReferenceEquals(Root.Right, null) == false) SearchSubtreeInorder(Root.Right, treeContent);
+            if (ReferenceEquals(Root.Right, null) == false) ExtractSubtreeContentInorder(Root.Right, treeContent);
 
             return treeContent.ToString();
         }
@@ -89,38 +89,38 @@ namespace Exercise_09
 
             StringBuilder treeContent = new StringBuilder();
 
-            if (ReferenceEquals(Root.Left, null) == false) SearchSubtreePostorder(Root.Left, treeContent);
+            if (ReferenceEquals(Root.Left, null) == false) ExtractSubtreeContentPostorder(Root.Left, treeContent);
 
-            if (ReferenceEquals(Root.Right, null) == false) SearchSubtreePostorder(Root.Right, treeContent);
+            if (ReferenceEquals(Root.Right, null) == false) ExtractSubtreeContentPostorder(Root.Right, treeContent);
 
             treeContent.AppendLine(Root.Data.ToString());
 
             return treeContent.ToString();
         }
 
-        private void SearchSubtreePreorder(Node subtreeNode, StringBuilder treeContent)
+        private void ExtractSubtreeContentPreorder(Node subtreeNode, StringBuilder treeContent)
         {
             treeContent.AppendLine(subtreeNode.Data.ToString());
 
-            if (ReferenceEquals(subtreeNode.Left, null) == false) SearchSubtreePreorder(subtreeNode.Left, treeContent);
+            if (ReferenceEquals(subtreeNode.Left, null) == false) ExtractSubtreeContentPreorder(subtreeNode.Left, treeContent);
 
-            if (ReferenceEquals(subtreeNode.Right, null) == false) SearchSubtreePreorder(subtreeNode.Right, treeContent);
+            if (ReferenceEquals(subtreeNode.Right, null) == false) ExtractSubtreeContentPreorder(subtreeNode.Right, treeContent);
         }
 
-        private void SearchSubtreeInorder(Node subtreeNode, StringBuilder treeContent)
+        private void ExtractSubtreeContentInorder(Node subtreeNode, StringBuilder treeContent)
         {
-            if (ReferenceEquals(subtreeNode.Left, null) == false) SearchSubtreeInorder(subtreeNode.Left, treeContent);
+            if (ReferenceEquals(subtreeNode.Left, null) == false) ExtractSubtreeContentInorder(subtreeNode.Left, treeContent);
 
             treeContent.AppendLine(subtreeNode.Data.ToString());
 
-            if (ReferenceEquals(subtreeNode.Right, null) == false) SearchSubtreeInorder(subtreeNode.Right, treeContent);
+            if (ReferenceEquals(subtreeNode.Right, null) == false) ExtractSubtreeContentInorder(subtreeNode.Right, treeContent);
         }
 
-        private void SearchSubtreePostorder(Node subtreeNode, StringBuilder treeContent)
+        private void ExtractSubtreeContentPostorder(Node subtreeNode, StringBuilder treeContent)
         {
-            if (ReferenceEquals(subtreeNode.Left, null) == false) SearchSubtreePostorder(subtreeNode.Left, treeContent);
+            if (ReferenceEquals(subtreeNode.Left, null) == false) ExtractSubtreeContentPostorder(subtreeNode.Left, treeContent);
 
-            if (ReferenceEquals(subtreeNode.Right, null) == false) SearchSubtreePostorder(subtreeNode.Right, treeContent);
+            if (ReferenceEquals(subtreeNode.Right, null) == false) ExtractSubtreeContentPostorder(subtreeNode.Right, treeContent);
 
             treeContent.AppendLine(subtreeNode.Data.ToString());
         }
