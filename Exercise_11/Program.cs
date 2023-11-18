@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Exercise_11
 {
@@ -6,34 +7,66 @@ namespace Exercise_11
     {
         async static Task Main(string[] args)
         {
-            var filename = Path.Combine(Directory.GetCurrentDirectory(), "..");
-            //var inputReader = File.OpenRead(filename);
+            var words = await InputUtils.ReadAllWords(Console.In);
+            var phrases = InputUtils.ReadAllPhrases(words);
 
-            var words = await InputUtils.ReadAll(Console.In);
-            var wordDict = new Dictionary<string, int>();
+            var wordDict = new Dictionary<string, InputUtils.InputTextData>();
+            var phraseDict = new Dictionary<string, InputUtils.InputTextData>();
+
+            int detectionOrder = 1;
 
             foreach (var word in words) 
             {
                 if (wordDict.ContainsKey(word))
                 {
-                    wordDict[word]++;
+                    wordDict[word].TextCount++;
                 }
                 else
                 {
-                    wordDict[word] = 1;
+                    wordDict[word] = new InputUtils.InputTextData(detectionOrder, 1);
+                    detectionOrder++;
                 }
             }
 
-            Console.WriteLine($"Total words: {words.Length}");
+            detectionOrder = 1;
 
-            var topTenWords = wordDict.OrderByDescending(x => x.Value).Take(10).ToList();
-
-
-            foreach (var word in topTenWords) 
+            foreach (var phrase in phrases)
             {
-                var freq = (double) word.Value / words.Length;
-                Console.WriteLine($" - {word.Key, -13} {freq, 2:P} {word.Value, 5}");
+                if (phraseDict.ContainsKey(phrase))
+                {
+                    phraseDict[phrase].TextCount++;
+                }
+                else
+                {
+                    phraseDict[phrase] = new InputUtils.InputTextData(detectionOrder, 1);
+                    detectionOrder++;
+                }
             }
+
+            var topFifteenWords = wordDict.OrderByDescending(x => x.Value.TextCount).
+                ThenBy(x => x.Value.DetectionOrder).Take(15).AsEnumerable();
+
+            var topFifteenPhrases = phraseDict.OrderByDescending(x => x.Value.TextCount).
+                ThenBy(x => x.Value.DetectionOrder).Take(15).AsEnumerable();
+
+            Console.WriteLine("Word Frequency:");
+
+            foreach (var word in topFifteenWords) 
+            {
+                var freq = (double) word.Value.TextCount / words.Length * 100;
+
+                Console.WriteLine($" - {word.Key, -12} {freq.ToString("F2", CultureInfo.InvariantCulture)}% ({word.Value.TextCount})");
+            }
+
+            Console.WriteLine("Phrase Frequency:");
+
+            foreach (var phrase in topFifteenPhrases)
+            {
+                var freq = (double) phrase.Value.TextCount / words.Length * 100;
+
+                Console.WriteLine($" - {phrase.Key, -20} {freq.ToString("F2", CultureInfo.InvariantCulture)}% ({phrase.Value.TextCount})");
+            }
+
         }
     }
 }
