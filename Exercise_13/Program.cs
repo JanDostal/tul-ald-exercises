@@ -10,8 +10,9 @@ namespace Exercise_13
         public async static Task Main(string[] args)
         {
             IList<Student> students;
+            char pathSeparator = Path.DirectorySeparatorChar;
 
-            using (StreamReader fs = File.OpenText($".{Path.DirectorySeparatorChar}vstup.html")) 
+            using (StreamReader fs = File.OpenText($"..{pathSeparator}..{pathSeparator}..{pathSeparator}input.html")) 
             {
                 students = await LoadStudentsFromTextSource(fs);
             }
